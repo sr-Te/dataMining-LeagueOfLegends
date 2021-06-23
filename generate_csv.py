@@ -126,12 +126,11 @@ def add_to_csv(region, tier, division):
                 print(err2)
                 pass 
 
-        df = pd.DataFrame(summoners_cols)
-        file_name = 'rifeco.csv'
-        # to override
-        # df.to_csv(file_name, encoding='utf-8', index=False)
-        # to add data
-        df.to_csv(file_name,  mode='a', header=False,encoding='utf-8', index=False)
+        # ADD DATA TO A CSV:
+        # df = pd.DataFrame(summoners_cols)
+        # file_name = '<fileName>.csv'
+        # df.to_csv(file_name, encoding='utf-8', index=False) # to override
+        # df.to_csv(file_name,  mode='a', header=False,encoding='utf-8', index=False) # to add data
         print("--- %s seconds ---" % (time.time() - start_time))
 
     except ApiError as err3:
@@ -142,12 +141,12 @@ def add_to_csv(region, tier, division):
 
 
 # API OPTIONS
-regions = ( 'la2','la1', 'na1','br1', 'eun1', 'euw1', 'jp1', 'kr',  'oc1', 'tr1', 'ru')
+regions = ( 'la2','la1', 'na1','jp1', 'kr','br1', 'eun1', 'euw1', 'oc1', 'tr1', 'ru')
 queue = 'RANKED_SOLO_5x5'
 tiers = ('IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND')
 divisions = ('I', 'II', 'III', 'IV')
 
-region = regions[0]
+region = regions[4]
 
 # CSV HEADER
 #gameId,region,summonerName,tier,rank,wins,losses,win,lane,role,championId,spell1Id,spell2Id,kills,deaths,assists,largestKillingSpree,largestMultiKill,killingSprees,longestTimeSpentLiving,doubleKills,tripleKills,quadraKills,pentaKills,totalDamageDealt,totalDamageDealtToChampions,totalHeal,totalUnitsHealed,damageDealtToObjectives,timeCCingOthers,totalDamageTaken,totalMinionsKilled,goldEarned,goldSpent,visionScore,team-firstBlood,team-firstTower,team-firstInhibitor,team-firstBaron,team-firstDragon,team-firstRiftHerald,team-towerKills,team-inhibitorKills,team-baronKills,team-dragonKills,team-vilemawKills,team-riftHeraldKills
