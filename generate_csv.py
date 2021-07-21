@@ -5,12 +5,12 @@ import time
 start_time = time.time()
 
 # GET DATA
-API_KEY = 'RGAPI-27ec1e06-0860-4120-972f-71d09eb90d9e'
+API_KEY = 'RGAPI-d5e5d356-d3a2-41d4-a272-01deb5de86fd'
 lol_watcher = LolWatcher(API_KEY)
 
 # PARAMETERS
-total_summoners = 50 # 205 by page
-matchs_by_summoner = 1 # 100 by summoner
+total_summoners = 200 # 205 by page
+matchs_by_summoner = 10 # 100 by summoner
 
 def add_to_csv(region, tier, division):
     print('obteniendo datos:')
@@ -58,8 +58,8 @@ def add_to_csv(region, tier, division):
                                         # summoner data
                                         summoners_row['region'] = region
                                         summoners_row['summonerName'] = row['summonerName']
-                                        # summoners_row['tier'] = row['tier']
-                                        # summoners_row['rank'] = row['rank']
+                                        summoners_row['tier'] = row['tier']
+                                        summoners_row['rank'] = row['rank']
                                         summoners_row['tierRank'] = row['tier'] + '-' + row['rank']
                                         summoners_row['wins'] = row['wins']
                                         summoners_row['losses'] = row['losses']
@@ -116,8 +116,7 @@ def add_to_csv(region, tier, division):
 
                                         # add row :3
                                         summoners_cols.append(summoners_row)
-
-                        
+                                        # print(summoners_row)
 
                     except ApiError as err1:
                         print(err1)
@@ -126,12 +125,11 @@ def add_to_csv(region, tier, division):
             except ApiError as err2:
                 print(err2)
                 pass 
-
         # ADD DATA TO A CSV:
         df = pd.DataFrame(summoners_cols)
-        file_name = 'lol_tier-rank_data1.csv'
-        df.to_csv(file_name, encoding='utf-8', index=False) # to override
-        #df.to_csv(file_name,  mode='a', header=False,encoding='utf-8', index=False) # to add data
+        file_name = 'la2_rankIIIonly_extended.csv'
+        # df.to_csv(file_name, encoding='utf-8', index=False) # to override
+        df.to_csv(file_name,  mode='a',encoding='utf-8', index=False, header=False) # to add data
         print("--- %s seconds ---" % (time.time() - start_time))
 
     except ApiError as err3:
@@ -150,6 +148,6 @@ region = regions[0]
 
 # CSV HEADER
 #gameId,region,summonerName,(tier,rank),,wins,losses,win,lane,role,championId,spell1Id,spell2Id,kills,deaths,assists,largestKillingSpree,largestMultiKill,killingSprees,longestTimeSpentLiving,doubleKills,tripleKills,quadraKills,pentaKills,totalDamageDealt,totalDamageDealtToChampions,totalHeal,totalUnitsHealed,damageDealtToObjectives,timeCCingOthers,totalDamageTaken,totalMinionsKilled,goldEarned,goldSpent,visionScore,team-firstBlood,team-firstTower,team-firstInhibitor,team-firstBaron,team-firstDragon,team-firstRiftHerald,team-towerKills,team-inhibitorKills,team-baronKills,team-dragonKills,team-vilemawKills,team-riftHeraldKills
-for tier in tiers:
-    for division in divisions:
-        add_to_csv(region, tier, division)
+#for tier in tiers:
+    #for division in divisions:
+add_to_csv(region, tiers[5], divisions[2])
