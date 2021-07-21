@@ -148,6 +148,6 @@ region = regions[0]
 
 # CSV HEADER
 #gameId,region,summonerName,(tier,rank),,wins,losses,win,lane,role,championId,spell1Id,spell2Id,kills,deaths,assists,largestKillingSpree,largestMultiKill,killingSprees,longestTimeSpentLiving,doubleKills,tripleKills,quadraKills,pentaKills,totalDamageDealt,totalDamageDealtToChampions,totalHeal,totalUnitsHealed,damageDealtToObjectives,timeCCingOthers,totalDamageTaken,totalMinionsKilled,goldEarned,goldSpent,visionScore,team-firstBlood,team-firstTower,team-firstInhibitor,team-firstBaron,team-firstDragon,team-firstRiftHerald,team-towerKills,team-inhibitorKills,team-baronKills,team-dragonKills,team-vilemawKills,team-riftHeraldKills
-#for tier in tiers:
+for tier in tiers:
     #for division in divisions:
-add_to_csv(region, tiers[5], divisions[2])
+    add_to_csv(region, tiers, divisions[2])
