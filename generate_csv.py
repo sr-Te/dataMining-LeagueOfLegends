@@ -5,12 +5,13 @@ import time
 start_time = time.time()
 
 # GET DATA
-API_KEY = 'RGAPI-de385813-0000-49f5-9ade-c417dd5df4b9'
+API_KEY = 'RGAPI-bbfbee00-ef1d-46ab-ae06-2b7a06eba9db'
 lol_watcher = LolWatcher(API_KEY)
 
 # PARAMETERS
-total_summoners = 200  # 205 by page
-matchs_by_summoner = 10  # 100 by summoner
+total_summoners = 50  # 205 by page
+matchs_by_summoner = 50  # 100 by summoner
+page = 6
 
 
 def add_to_csv(region, tier, division):
@@ -20,7 +21,7 @@ def add_to_csv(region, tier, division):
 
     try:
         summoners = lol_watcher.league.entries(
-            region, queue, tier, division, 1)
+            region, queue, tier, division, page)
         summoners_cols = []
         summoners_count = 0
         for row in summoners:
@@ -132,8 +133,8 @@ def add_to_csv(region, tier, division):
                 pass
         # ADD DATA TO A CSV:
         df = pd.DataFrame(summoners_cols)
-        file_name = 'la2_rankIIIonly_extended.csv'
-        # df.to_csv(file_name, encoding='utf-8', index=False) # to override
+        file_name = '100x100xdiv.csv'
+        # df.to_csv(file_name, encoding='utf-8', index=False)  # to override
         df.to_csv(file_name,  mode='a', encoding='utf-8',
                   index=False, header=False)  # to add data
         print("--- %s seconds ---" % (time.time() - start_time))
@@ -148,11 +149,11 @@ regions = ('la2', 'la1', 'na1', 'jp1', 'kr', 'br1',
            'eun1', 'euw1', 'oc1', 'tr1', 'ru')
 queue = 'RANKED_SOLO_5x5'
 tiers = ('IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND')
-divisions = ('I', 'II', 'III', 'IV')
-region = regions[0]
+# divisions = ('I', 'II', 'III', 'IV')
+divisions = ('II', 'III')
 
 # CSV HEADER
 # gameId,region,summonerName,(tier,rank),,wins,losses,win,lane,role,championId,spell1Id,spell2Id,kills,deaths,assists,largestKillingSpree,largestMultiKill,killingSprees,longestTimeSpentLiving,doubleKills,tripleKills,quadraKills,pentaKills,totalDamageDealt,totalDamageDealtToChampions,totalHeal,totalUnitsHealed,damageDealtToObjectives,timeCCingOthers,totalDamageTaken,totalMinionsKilled,goldEarned,goldSpent,visionScore,team-firstBlood,team-firstTower,team-firstInhibitor,team-firstBaron,team-firstDragon,team-firstRiftHerald,team-towerKills,team-inhibitorKills,team-baronKills,team-dragonKills,team-vilemawKills,team-riftHeraldKills
 for tier in tiers:
-    # for division in divisions:
-    add_to_csv(region, tiers, divisions[2])
+    for division in divisions:
+        add_to_csv(regions[0], tier, division)
