@@ -5,13 +5,21 @@ import time
 start_time = time.time()
 
 # GET DATA
-API_KEY = 'RGAPI-bbfbee00-ef1d-46ab-ae06-2b7a06eba9db'
+API_KEY = 'RGAPI-12809a8a-f4a4-4ed0-8c07-a8e602b61ca4'
 lol_watcher = LolWatcher(API_KEY)
 
 # PARAMETERS
+csv_path = 'csv/'
+
+#! la2_50matchs.csv
+# total_summoners = 50  # 205 by page
+# matchs_by_summoner = 50  # 100 by summoner
+# page = 5
+
+#! na1_50match.csv
 total_summoners = 50  # 205 by page
 matchs_by_summoner = 50  # 100 by summoner
-page = 6
+page = 1
 
 
 def add_to_csv(region, tier, division):
@@ -133,7 +141,7 @@ def add_to_csv(region, tier, division):
                 pass
         # ADD DATA TO A CSV:
         df = pd.DataFrame(summoners_cols)
-        file_name = '100x100xdiv.csv'
+        file_name = csv_path + 'na1_50match.csv'
         # df.to_csv(file_name, encoding='utf-8', index=False)  # to override
         df.to_csv(file_name,  mode='a', encoding='utf-8',
                   index=False, header=False)  # to add data
@@ -145,7 +153,7 @@ def add_to_csv(region, tier, division):
 
 
 # API OPTIONS
-regions = ('la2', 'la1', 'na1', 'jp1', 'kr', 'br1',
+regions = ('la2', 'na1', 'jp1', 'kr', 'br1',
            'eun1', 'euw1', 'oc1', 'tr1', 'ru')
 queue = 'RANKED_SOLO_5x5'
 tiers = ('IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND')
@@ -156,4 +164,4 @@ divisions = ('II', 'III')
 # gameId,region,summonerName,(tier,rank),,wins,losses,win,lane,role,championId,spell1Id,spell2Id,kills,deaths,assists,largestKillingSpree,largestMultiKill,killingSprees,longestTimeSpentLiving,doubleKills,tripleKills,quadraKills,pentaKills,totalDamageDealt,totalDamageDealtToChampions,totalHeal,totalUnitsHealed,damageDealtToObjectives,timeCCingOthers,totalDamageTaken,totalMinionsKilled,goldEarned,goldSpent,visionScore,team-firstBlood,team-firstTower,team-firstInhibitor,team-firstBaron,team-firstDragon,team-firstRiftHerald,team-towerKills,team-inhibitorKills,team-baronKills,team-dragonKills,team-vilemawKills,team-riftHeraldKills
 for tier in tiers:
     for division in divisions:
-        add_to_csv(regions[0], tier, division)
+        add_to_csv(regions[1], tier, division)
