@@ -5,7 +5,7 @@ import time
 start_time = time.time()
 
 # GET DATA
-API_KEY = 'RGAPI-1503b482-6fb0-4f05-a748-2c0648426491'
+API_KEY = 'RGAPI-675ad333-91a7-49d4-b169-7f3b86f0e28f'
 lol_watcher = LolWatcher(API_KEY)
 
 # API OPTIONS
